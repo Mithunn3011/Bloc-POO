@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <time.h>
 /*
 // Partie 1 du Workshop
 class Circle {
@@ -162,23 +163,90 @@ class Creature{
     int niveau;
 
     Creature(){
-        int pv = 0;
-        int pa = 0;
-        int niveau = 0;
+        pv = 0;
+        pa = 0;
+        niveau = 0;
     }
 
     Creature(int pv, int pa, int niv){
-        int pv = pv;
-        int pa = pa;
-        int niveau = niveau;
+        pv = pv;
+        pa = pa;
+        niveau = niv;
     }
 
     void affiche(){
-        std::cout<< "Stat de la Creature" <<std::endl;
+        std::cout<< "Stat de la Creature :\n" <<std::endl;
         std::cout<<"PV :" << pv <<std::endl;
         std::cout<<"PA :" << pa <<std::endl;
         std::cout<<"Niveau :" << niveau <<std::endl;
     }
 
-    
+    double attaque(){
+        std ::srand(time(NULL));
+        int min = 0;
+        int max = 1;
+        return (std::rand() % (max - min + 1)+ min) * pa;
+    }
+
+    void subitDegat(int degat){
+        pv=pv-degat;
+    }
+
+    bool estVivant(){
+        if (pv > 0) {
+            return true;
+        }
+        return false;
+    }
+
+}; 
+
+
+class Hero{
+    public:
+    int pv;
+    int pa;
+    std::string nom;
+
+    Hero(){
+        pv = 0;
+        pa = 0;
+        nom = "Hero";
+    }
+
+    Hero(int pv, int pa, std::string nom){
+        pv = pv;
+        pa = pa;
+        nom = nom;
+    }
+
+    void affiche(){
+        std::cout<< "Stat du hero, "<< nom << ": \n" <<std::endl;
+        std::cout<<"PV :" << pv <<std::endl;
+        std::cout<<"PA :" << pa <<std::endl;
+    }
+
+    double attaque(){
+        std ::srand(time(NULL));
+        int min = 0;
+        int max = 1;
+        return (std::rand() % (max - min + 1)+ min) * pa;
+    }
+
+    void subitDegat(int degat){
+        pv=pv-degat;
+    }
+
+    bool estVivant(){
+        if (pv > 0) {
+            return true;
+        }
+        return false;
+    }
+
+}; 
+int main(){
+    std ::srand(time(NULL));
 }
+
+    
