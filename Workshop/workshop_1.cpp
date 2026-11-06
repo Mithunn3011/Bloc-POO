@@ -66,7 +66,7 @@ int main() {
 }
 */
 
-
+/*
 // Partie 2 du Workshop
 using namespace std;
 
@@ -151,4 +151,34 @@ int main(){
     Fraction quotient;
     quotient = f1.division(f3);
     quotient.afficher();
+}
+*/
+
+//Partie 3
+class Creature{
+    public:
+    int pv;
+    int pa;
+    int niveau;
+
+    Creature(){
+        int pv = 0;
+        int pa = 0;
+        int niveau = 0;
+    }
+
+    Creature(int pv, int pa, int niv){
+        int pv = pv;
+        int pa = pa;
+        int niveau = niveau;
+    }
+
+    void affiche(){
+        std::cout<< "Stat de la Creature" <<std::endl;
+        std::cout<<"PV :" << pv <<std::endl;
+        std::cout<<"PA :" << pa <<std::endl;
+        std::cout<<"Niveau :" << niveau <<std::endl;
+    }
+
+    
 }
