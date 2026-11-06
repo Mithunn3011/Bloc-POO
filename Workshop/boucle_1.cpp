@@ -9,9 +9,13 @@ class Date {
     void afficher(){
         std::cout << j <<"/"<< m <<"/" << a << std::endl;
 
-    }
+    };
+    int j_max = 30;
+    int mois_30j[] = {4, 6, 9, 11};
     void incr(){
-        
+        if (){
+
+        }
     }
 };
 
