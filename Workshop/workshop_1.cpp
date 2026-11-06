@@ -18,7 +18,9 @@ class Circle {
     double perimeter() {
         return 2 * M_PI * r;
     };
-
+    double area(){
+        return M_PI * r * r;
+    };
 };
 
 class Rectangle
@@ -40,19 +42,23 @@ class Rectangle
     // Calculate the perimeter of the rectangle
     double perimeter() {
         return 2 *(w + h);
-    }
+    };
 
+    double area(){
+        return w*h;
+    };
 };
 
 
 int main() {
     Circle c{0, 0, 1};
     std::cout << c.perimeter() << std::endl;
+    std::cout << c.area() << std::endl;
     c.set_pos(1, 1);
     std::cout << "Coordinates of the center: (" << c.x << ", " << c.y << ")" << std::endl;
 
     Rectangle r{0, 0, 1, 2};
-    std::cout << r.perimeter() << std::endl;
+    std::cout << r.area() << std::endl;
     r.set_pos(-1, -1);
     std::cout << "Coordinates of the top left corner: (" << r.x << ", " << r.y << ")" << std::endl;
     return 0;
