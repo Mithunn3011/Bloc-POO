@@ -168,17 +168,17 @@ class Creature{
         niveau = 0;
     }
 
-    Creature(int pv, int pa, int niv){
-        pv = pv;
-        pa = pa;
-        niveau = niv;
+    Creature(int pv1, int pa1, int niv1){
+        pv = pv1;
+        pa = pa1;
+        niveau = niv1;
     }
 
     void affiche(){
-        std::cout<< "Stat de la Creature :\n" <<std::endl;
+        std::cout<< "Stat de la Creature :" <<std::endl;
         std::cout<<"PV :" << pv <<std::endl;
         std::cout<<"PA :" << pa <<std::endl;
-        std::cout<<"Niveau :" << niveau <<std::endl;
+        std::cout<<"Niveau :" << niveau << "\n"<<std::endl;
     }
 
     double attaque(){
@@ -206,24 +206,28 @@ class Hero{
     public:
     int pv;
     int pa;
+    int niv;
     std::string nom;
 
     Hero(){
-        pv = 0;
-        pa = 0;
+        pv = 1;
+        pa = 1;
         nom = "Hero";
+        niv=1;
     }
 
-    Hero(int pv, int pa, std::string nom){
-        pv = pv;
-        pa = pa;
-        nom = nom;
+    Hero( std::string nom1, int pv1, int pa1, int niv1){
+        pv = pv1;
+        pa = pa1;
+        nom = nom1;
+        niv = niv1;
     }
 
     void affiche(){
-        std::cout<< "Stat du hero, "<< nom << ": \n" <<std::endl;
+        std::cout<< "Stat du hero, "<< nom << ": " <<std::endl;
         std::cout<<"PV :" << pv <<std::endl;
         std::cout<<"PA :" << pa <<std::endl;
+        std::cout<<"Niveau :" << niv << "\n"<<std::endl;
     }
 
     double attaque(){
@@ -247,6 +251,16 @@ class Hero{
 }; 
 int main(){
     std ::srand(time(NULL));
+    Hero Hrun ("Hrun",10,10,8);
+    Creature Samy(10,10,5);
+    Hrun.affiche();
+    Samy.affiche();
+    int degat = Hrun.attaque();
+    Samy.subitDegat(degat);
+    degat = Samy.attaque();
+    Hrun.subitDegat(degat);
+    Samy.affiche();
+    Hrun.affiche();
 }
 
     
