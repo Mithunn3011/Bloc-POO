@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <string>
+#include <string.h>
 #include <stdexcept>
 #include <cstdio>
 
@@ -87,13 +87,25 @@ class Cesar{
                 message_n += static_cast<char>(32);
             }
             else {
-                message_n += static_cast<char>((code+65-decalage)%26+65);
+                message_n += static_cast<char>((code - 65 - decalage + 26) % 26 + 65);
             }
         }
         return message_n;
     }
 };
 
+class XOR {
+    public :
+
+    std::string crypte (std::string message, std::string cle){
+        int len_mess = message.size();
+        int len_cle = cle.size();
+        for (int i=0; i < len_mess; i++){
+            message[i]=message[i] ^ cle[i % len_cle];
+        }
+        return message;
+    }
+};
 int main() {
     /*
     Texte t;
@@ -114,5 +126,10 @@ int main() {
     std::cout << new_mess_2 << std::endl;
     std::cout <<secret.alphabet_clair << std::endl;
     std::cout <<secret.alphabet_crypte << std::endl;
+    XOR test;
+    std::string mess_3 = test.crypte("ABCDEFGHIJKLMNOPQRSTUVWXYZ ", "ABC");
+    std::string mess_4 = test.crypte(mess_3, "ABC");
+    std::cout << mess_3 << std::endl;
+    std::cout << mess_4 << std::endl;
     return 0;
 }
