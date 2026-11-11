@@ -42,7 +42,60 @@ public:
     }
 };
 
+class Cesar{
+    public :
+    int decalage;
+    char alphabet_clair[27];
+    char alphabet_crypte[27];
+
+    void initialiserAlphabets() {
+        for (int i = 0; i < 26; i++) {
+            alphabet_clair[i] = static_cast<char>('A' + i);
+            alphabet_crypte[i] = static_cast<char>('A' + (i + decalage) % 26);
+        }
+        // On ajoute le caractère nul à la fin pour fermer la chaîne
+        alphabet_clair[26] = '\0';
+        alphabet_crypte[26] = '\0';
+    }
+    Cesar(int deca){
+        decalage = deca;
+        initialiserAlphabets();
+    }
+    Cesar(){
+        decalage = 1;
+        initialiserAlphabets();
+    }
+    std::string Crypter(std::string message_i){
+        std::string message_n;
+        for (char lettre : message_i){
+            int code = int(lettre);
+            if (code == 32 ){
+                message_n += static_cast<char>(42);
+            }
+            else {
+                message_n += static_cast<char>((code-65+decalage)%26+65);
+            }    
+        }
+        return message_n;
+    }
+
+    std::string Decrypter(std::string message_i){
+        std::string message_n;
+        for (char lettre : message_i){
+            int code = int(lettre);
+            if (code == 42 ){
+                message_n += static_cast<char>(32);
+            }
+            else {
+                message_n += static_cast<char>((code+65-decalage)%26+65);
+            }
+        }
+        return message_n;
+    }
+};
+
 int main() {
+    /*
     Texte t;
     std::string texte;
     std::cout << "Entre le message que vous voulez mettre dans le fichier : ";
@@ -53,6 +106,13 @@ int main() {
     
     std::string contenuLu = t.Lire("corbeille_1.txt", taille);
     std::cout << "Lu depuis le fichier : " << contenuLu << std::endl;
-
+    */
+    Cesar secret;
+    std::string new_mess = secret.Crypter("ABCDEFGHIJKLMNOPQRSTUVWXYZ ");
+    std::cout << new_mess << std::endl;
+    std::string new_mess_2 = secret.Decrypter(new_mess);
+    std::cout << new_mess_2 << std::endl;
+    std::cout <<secret.alphabet_clair << std::endl;
+    std::cout <<secret.alphabet_crypte << std::endl;
     return 0;
 }
