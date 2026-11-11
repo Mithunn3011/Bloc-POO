@@ -3,40 +3,56 @@
 #include <sstream>
 #include <string>
 #include <stdexcept>
+#include <cstdio>
 
 class Texte {
-    public :
+public:
     std::string texte;
 
-    std::string Lire(const std::string& chemin){
-        std::ifstream fichier(chemin);
-        if (!fichier.is_open()) {
+    std::string Lire(const std::string& chemin, int taille) {
+        FILE* fichier = fopen(chemin.c_str(), "rb");
+        if (fichier == nullptr) {
             throw std::runtime_error("Impossible d'ouvrir : " + chemin);
-        };
-        std::stringstream contenu;
-        contenu << fichier.rdbuf();
-        std::cout << contenu.str() << std::endl; 
-        fichier.close();
-        return contenu.str();
+        }
+        fseek(fichier, 0, SEEK_SET);
+        std::string message = "";
+        
+        for (int i = 0; i < taille; i++) {
+            int c = fgetc(fichier);
+            if (c == EOF) {
+                break;
+            }
+            message += static_cast<char>(c);
+        }
+        fclose(fichier);
+        return message;
     }
-    void Ecrire (const std::string& chemin, const std::string& texte) {
-        std::ofstream fichier(chemin, std::ios::app);
 
-        if (!fichier.is_open()) {
+    void Ecrire(const std::string& chemin, int taille, const std::string& texte) {
+        FILE* fichier = fopen(chemin.c_str(), "wb");
+
+        if (fichier == nullptr) {
             throw std::runtime_error("Impossible d'ouvrir : " + chemin);
-        };
-        fichier << texte;
-        fichier.close();
-    };
-    
+        }
+
+        for (int i = 0; i < taille && i < static_cast<int>(texte.size()); i++) {
+            fprintf(fichier, "%c", texte[i]);
+        }
+        fclose(fichier);
+    }
 };
 
-int main(){
+int main() {
     Texte t;
     std::string texte;
-    std::cout << "Entre le message que vous voulez mettre dans le fichier :";
-    std::getline (std::cin, texte);
-    t.Ecrire("corbeille_1.txt", texte + "\n");
-    t.Lire("corbeille_1.txt");
+    std::cout << "Entre le message que vous voulez mettre dans le fichier : ";
+    std::getline(std::cin, texte);
+    int taille = texte.size();
+    
+    t.Ecrire("corbeille_1.txt", taille, texte);
+    
+    std::string contenuLu = t.Lire("corbeille_1.txt", taille);
+    std::cout << "Lu depuis le fichier : " << contenuLu << std::endl;
+
     return 0;
-};
+}
