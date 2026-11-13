@@ -78,4 +78,4 @@ class Livre{
         std::cout << "Titre : " << Titre << std::endl;
         Date_publication.affiche_jj_mm_aaaa(Date_publication.j,Date_publication.m,Date_publication.a);
     }
-}
+};
